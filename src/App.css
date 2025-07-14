@@ -80,11 +80,13 @@ p {
   padding: 1rem;
   border-radius: 8px;
   margin: 1.5rem 0;
+  font-size: 1.2rem;
 }
 
 .time-left strong {
   color: #fff;
   font-weight: 600;
+  font-size: 1.4rem;
 }
 
 .additional-info {
@@ -100,4 +102,17 @@ p {
   50% {
     transform: translateY(-10px);
   }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.6;
+  }
+}
+
+.time-left strong:only-child {
+  animation: pulse 2s infinite;
 }

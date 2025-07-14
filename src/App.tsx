@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
-  const [timeLeft, setTimeLeft] = useState(30)
+  const [timeLeft, setTimeLeft] = useState(30 * 60) // 30 minutos em segundos
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -13,10 +13,16 @@ function App() {
         }
         return prevTime - 1
       })
-    }, 60000) // Atualiza a cada minuto
+    }, 1000) // Atualiza a cada segundo
 
     return () => clearInterval(timer)
   }, [])
+
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60)
+    const remainingSeconds = seconds % 60
+    return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`
+  }
 
   return (
     <div className="maintenance-container">
@@ -28,7 +34,13 @@ function App() {
           serviços.
         </p>
         <p className="time-left">
-          Tempo estimado: <strong>{timeLeft} minutos</strong>
+          {timeLeft > 0 ? (
+            <>
+              Tempo estimado: <strong>{formatTime(timeLeft)}</strong>
+            </>
+          ) : (
+            <strong>Aguarde...</strong>
+          )}
         </p>
         <div className="additional-info">
           <p>Agradecemos sua compreensão!</p>
